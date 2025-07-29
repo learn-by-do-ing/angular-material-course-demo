@@ -21,10 +21,13 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
             <mat-list-item routerLink="dashboard" routerLinkActive="opacity-50">
               Dashboard
             </mat-list-item>
+            <mat-list-item routerLink="demo-dnd" routerLinkActive="opacity-50">
+              Demo Drag and Drop
+            </mat-list-item>
           </mat-list>
         </mat-sidenav>
 
-      <div class="">
+      <div class="mx-3">
         <button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>list</mat-icon>
         </button>

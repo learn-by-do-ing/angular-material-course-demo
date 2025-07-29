@@ -26,6 +26,9 @@ import { GridCities } from './components/grid-cities';
     >
       <mat-icon>add</mat-icon>
     </button>
+
+    <h1>Dashboard Demo</h1>
+    
     
     @if (cities.error()) {
       <div>Server is down</div>
