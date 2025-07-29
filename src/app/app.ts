@@ -1,16 +1,39 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MatSidenavModule, MatButtonModule, MatIcon, MatList, MatListItem, RouterLink, RouterLinkActive],
   template: `
-    <h1>Welcome to {{ title() }}!</h1>
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav mode="side" [fixedInViewport]="true" >
+          <mat-list>
+            <mat-list-item routerLink="home" routerLinkActive="opacity-50">
+              Home
+            </mat-list-item>
+            <mat-list-item routerLink="demo" routerLinkActive="opacity-50">
+              Demo
+            </mat-list-item>
+            <mat-list-item routerLink="dashboard" routerLinkActive="opacity-50">
+              Dashboard
+            </mat-list-item>
+          </mat-list>
+        </mat-sidenav>
 
-    <router-outlet />
+      <div class="">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>list</mat-icon>
+        </button>
+        
+        <router-outlet />
+      </div>
+
+    </mat-sidenav-container>
   `,
-  styles: [],
 })
 export class App {
-  protected readonly title = signal('angular-material-dashboard');
 }

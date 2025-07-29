@@ -1,59 +1,59 @@
-# AngularMaterialDashboard
+# Project Creation
+npx -p @angular/cli@latest ng new angular-material-dashboard  -s -t -S
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.3.
+# Add Material & CDK
 
-## Development server
+https://material.angular.dev/guide/getting-started
 
-To start a local development server, run:
+ng add @angular/material
 
-```bash
-ng serve
+# Add Tailwind 4
+
+https://tailwindcss.com/docs/installation/framework-guides/angular
+
+npm install tailwindcss @tailwindcss/postcss postcss --force
+
+# Routes
+1.
+ng g c pages/dashboard --export-default
+
+2. app.routes.ts
+
+```ts
+export const routes: Routes = [
+  { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard')},
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+];
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+# JSON SERVER
 
-## Code scaffolding
+1.
+npm i json-server -D
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+2. Create db.json
 
-```bash
-ng generate component component-name
+```json
+{
+  "cities": [
+    {
+      "id": "1001",
+      "name": "Milan",
+      "position": 0
+    },
+    {
+      "id": "2",
+      "name": "Rome",
+      "position": 1
+    },
+    {
+      "id": "3",
+      "name": "New York",
+      "position": 2
+    }
+  ]
+}
 ```
+3. npm run server
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
