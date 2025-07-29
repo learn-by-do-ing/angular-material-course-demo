@@ -24,6 +24,9 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
             <mat-list-item routerLink="demo-dnd" routerLinkActive="opacity-50">
               Demo Drag and Drop
             </mat-list-item>
+            <mat-list-item routerLink="demo-overlay" routerLinkActive="opacity-50">
+              Demo Overlay
+            </mat-list-item>
           </mat-list>
         </mat-sidenav>
 
@@ -32,7 +35,9 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
           <mat-icon>list</mat-icon>
         </button>
         
+        <div>
         <router-outlet />
+        </div>
       </div>
 
     </mat-sidenav-container>

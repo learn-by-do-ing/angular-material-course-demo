@@ -4,6 +4,7 @@ export const routes: Routes = [
   { path: 'home', loadComponent: () => import('./pages/home/home')},
   { path: 'demo', loadComponent: () => import('./pages/demo/demo')},
   { path: 'demo-dnd', loadComponent: () => import('./pages/demo-dnd/demo-dnd')},
+  { path: 'demo-overlay', loadComponent: () => import('./pages/demo-overlay/demo-overlay')},
   { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard')},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

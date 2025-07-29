@@ -6,3 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 h1 {
   @apply text-4xl  font-thin my-6;
 }
+
+h2 {
+  @apply text-2xl  font-thin mt-6 mb-3;
+}
