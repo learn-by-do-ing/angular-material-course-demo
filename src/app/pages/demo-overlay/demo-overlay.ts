@@ -28,7 +28,7 @@ import { OverlayProgress } from './components/overlay-progress';
     <app-overlay-progress [formControl]="myInput" />
     
     <h2>Template Driven Forms</h2>
-    <app-overlay-progress [ngModel]="value()" /> {{value()}}
+    <app-overlay-progress [(ngModel)]="value" /> {{value()}}
     
   `,
 
