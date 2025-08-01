@@ -7,29 +7,24 @@ import { GridCitiesItem } from './grid-cities-item';
   selector: 'app-grid-cities',
   imports: [CdkDropList, CdkDrag, GridCitiesItem],
   template: `
-    <div 
-      class="example-list"
-      cdkDropList
-      cdkDropListOrientation="mixed"
-      (cdkDropListDropped)="drop($event)"
-    >
+    <div cdkDropList cdkDropListOrientation="mixed" class="example-list" 
+         (cdkDropListDropped)="drop($event)">
       @for (city of cities(); track city.id) {
-        <div class="example-box relative overflow-hidden" cdkDrag>
+        <div class="example-box relative" cdkDrag>
           <app-grid-cities-item
             [city]="city"
+            (onEdit)="editCity($event)"
             (onDelete)="onDelete.emit($event)"
-            (onEdit)="onEdit.emit($event)"
           />
         </div>
       }
     </div>
-      
   `,
   styles: `
     .example-list {
       display: flex;
       flex-wrap: wrap;
-      width: 100%; /*NEW*/
+      width: 100%;
       max-width: 100%;
       gap: 15px;
       padding: 15px;
@@ -51,6 +46,7 @@ import { GridCitiesItem } from './grid-cities-item';
       background: white;
       text-align: center;
       font-size: 14px;
+      overflow: hidden;
     }
 
     .cdk-drag-preview {
@@ -73,16 +69,17 @@ import { GridCitiesItem } from './grid-cities-item';
 export class GridCities {
   cities = input<City[] | undefined>([])
   onDelete = output<City>()
-  onEdit = output<City>() // NEW
+  onEdit = output<City>()
   onDrag = output<City[]>()
 
-  drop(event: CdkDragDrop<string[]>) {
-    const cities = this.cities() || []
+  editCity(city: City) {
+    this.onEdit.emit(city)
+  }
+  drop(event: CdkDragDrop<City[]>) {
+    const cities = this.cities()
     if (cities) {
       moveItemInArray(cities, event.previousIndex, event.currentIndex);
       this.onDrag.emit(cities)
     }
-
   }
-
 }

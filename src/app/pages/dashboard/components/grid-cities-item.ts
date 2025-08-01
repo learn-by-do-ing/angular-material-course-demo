@@ -1,44 +1,42 @@
 import { httpResource } from '@angular/common/http';
-import { Component, computed, input, output } from '@angular/core';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatProgressBar } from '@angular/material/progress-bar';
+import { Component, computed, effect, input, output } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { City } from '../../../model/city';
 
 @Component({
   selector: 'app-grid-cities-item',
   imports: [
     MatIconButton,
-    MatButtonModule, MatMenuModule, MatIconModule, MatProgressBar
+    MatIcon,
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuItem
   ],
   template: `
-    
-    <div class="p-4">{{city().name}} </div>
-    
-    @if(meteo.isLoading()) {
-      <mat-progress-bar mode="indeterminate" />
-    }
-    <div class="flex items-center justify-center gap-2">
-      
-      @if(meteo.error()) {
-        <div class="bg-red-300 p-2 rounded-full">error!</div>
-      } @else {
-        <div class="text-3xl">{{temperature()}} °</div>
-        <img [src]="icon()" alt="">  
+    <div>{{ city().name }}</div>
+    <div class="flex justify-center gap-3 items-center">
+      @if (meteo.isLoading()) {
+        loading...
       }
-      
+      @if (meteo.error()) {
+        <div class="bg-red-300 p-2 rounded-full mt-1">Error!</div>
+      } @else {
+        <div>{{ temperature() }} °</div>
+        <img [src]="icon()" alt="meteo">  
+      }
     </div>
     
     <div class="absolute top-0 right-0">
-      <button 
+      <button
         mat-icon-button
         [matMenuTriggerFor]="menu"
       >
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>
-
+    
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onEdit.emit(city())">
         <mat-icon>edit</mat-icon>
@@ -46,29 +44,27 @@ import { City } from '../../../model/city';
       </button>
       <button mat-menu-item (click)="onDelete.emit(city())">
         <mat-icon>delete</mat-icon>
-        <span>Delete</span>
+        <span>delete</span>
       </button>
     </mat-menu>
     
   `,
+  styles: ``
 })
 export class GridCitiesItem {
   city = input.required<City>()
   onDelete = output<City>()
   onEdit = output<City>()
-
   meteo = httpResource<Meteo>(() => `https://api.openweathermap.org/data/2.5/weather?q=${this.city().name}&units=metric&APPID=eb03b1f5e5afb5f4a4edb40c1ef2f534`)
-  temperature = computed(() => {
-    return this.meteo.value()?.main.temp
-  })
 
+  temperature = computed(() => this.meteo.value()?.main?.temp)
   icon = computed(() => {
     const icon = this.meteo.value()?.weather[0].icon;
     return `https://openweathermap.org/img/w/${icon}.png`
   })
 }
 
-/*METEO TYPE*/
+
 
 export interface Meteo {
   coord: Coord;

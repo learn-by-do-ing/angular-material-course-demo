@@ -7,23 +7,22 @@ import { MatIcon } from '@angular/material/icon';
   selector: 'app-demo-dnd',
   imports: [CdkDropList, CdkDrag, JsonPipe, MatIcon, CdkDragHandle],
   template: `
-    
-    <h1>Drag and Drop Demo</h1>
-    
-    <div cdkDropList class="list" (cdkDropListDropped)="drop($event)">
+    <h1>Drag And Drop Demo</h1>
+    <div
+      cdkDropList
+      class="list"
+      (cdkDropListDropped)="drop($event)"
+    >
       @for (product of products(); track product.id) {
         <div class="item" cdkDrag>
-          <mat-icon cdkDragHandle style="cursor: move;">drag_indicator</mat-icon>
+          <mat-icon cdkDragHandle style="cursor: move">drag_indicator</mat-icon>
           {{product.name}}
         </div>
       }
     </div>
 
-    <br>
-    <pre>{{this.products() | json}}</pre>
   `,
   styles: `
-
     .list {
       display: flex;
       flex-direction: column;
@@ -34,30 +33,28 @@ import { MatIcon } from '@angular/material/icon';
       background-color: lightgray;
       border-radius: 1rem;
       padding: 1rem;
-      display: flex; /*NEW*/
-      align-items: center;  /*NEW*/
-      overflow: hidden; /*NEW*/
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow: hidden;
     }
-
+    
     .cdk-drag-preview {
-      border: 1px solid #ddd;
+      border: 1px solid black;
       background-color: white;
     }
-
+    
     .cdk-drag-placeholder {
-      opacity: 0.5;
+      opacity: 0.2;
+      
     }
-
-    /* animation when element is released */
     .cdk-drag-animating {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
     }
-
-    /* animation during dragging */
+    
     .list.cdk-drop-list-dragging .item:not(.cdk-drag-placeholder) {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
     }
-
   `
 })
 export default class DemoDnd {
@@ -67,11 +64,10 @@ export default class DemoDnd {
     { id: 3, name: 'Milk', position: 2 },
   ])
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.products(), event.previousIndex, event.currentIndex);
-    console.log(this.products())
+  drop(event: CdkDragDrop<any>) {
+    moveItemInArray(this.products(), event.previousIndex, event.currentIndex)
     this.products.update(prev => {
-      return prev.map((p, index) => ({...p, position: index}) )
+      return prev.map((p, i) => ({ ...p, position: i }))
     })
   }
 }

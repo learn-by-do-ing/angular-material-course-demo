@@ -1,120 +1,134 @@
-import { JsonPipe } from '@angular/common';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTooltip } from '@angular/material/tooltip';
 import { forkJoin } from 'rxjs';
 import { City } from '../../model/city';
-import { DialogCity } from './components/dialog-city';
+import { DialogCityForm } from './components/dialog-city-form';
 import { DialogRemoveCity } from './components/dialog-remove-city';
 import { GridCities } from './components/grid-cities';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [
-    GridCities,
-    MatIconButton,
-    MatIcon,
-    JsonPipe
-  ],
   template: `
+    <h1>Dashboard</h1>
+    @if (cities.isLoading()) {
+      <div>Loading...</div>
+    }
+    @if (cities.error()) {
+      <div>Some errors!</div>
+    }
+
     <button
-      mat-icon-button
-      (click)="addCity()"
+      mat-icon-button (click)="addCity()"
+      matTooltip="Add new City"
     >
       <mat-icon>add</mat-icon>
     </button>
 
-    <h1>Dashboard Demo</h1>
-    
-    
-    @if (cities.error()) {
-      <div>Server is down</div>
-      <div>Open your terminal and type <pre>npm run server</pre></div>
-    } @else {
-      <app-grid-cities
-        [cities]="cities.value()"
-        (onDelete)="deleteCity($event)"
-        (onEdit)="editCity($event)"
-        (onDrag)="dragCities($event)"
-      ></app-grid-cities>  
-    }
-    
-
-   
+    <app-grid-cities
+      [cities]="cities.value()"
+      (onDelete)="deleteCity($event)"
+      (onEdit)="editCity($event)"
+      (onDrag)="dragCities($event)"
+    />
   `,
+  imports: [
+    GridCities,
+    MatIconButton,
+    MatIcon,
+    MatTooltip
+  ],
+  styles: ``
 })
 export default class Dashboard {
   cities = httpResource<City[]>(() => `http://localhost:3000/cities?_sort=position`)
   http = inject(HttpClient)
-  dialog = inject(MatDialog); // NEW
-  snackBar = inject(MatSnackBar);
+  dialog = inject(MatDialog)
+  snackbar = inject(MatSnackBar)
 
   addCity() {
-    const dialog = this.dialog.open(DialogCity, {
+    const dialogRef = this.dialog.open(DialogCityForm, {
       width: '300px',
-      data: { name: '', type: 'add' }
-    });
-    dialog.afterClosed().subscribe(cityName => {
-      if (cityName) {
-        this.http.post<City>('http://localhost:3000/cities', {
+      data: { name: '', type: 'add' },
+    })
+
+    dialogRef.afterClosed().subscribe(cityName => {
+      if(cityName) {
+        this.http.post(`http://localhost:3000/cities`, {
           name: cityName,
-          position: this.cities.value()?.length
+          position: this.getMaxPosition(this.cities.value()) + 1
         })
           .subscribe(() => {
             this.cities.reload()
-          })
-      }
-    })
-  }
-
-  deleteCity(city: City) {
-    const dialog = this.dialog.open(DialogRemoveCity, {
-      width: '250px',
-    });
-    dialog.afterClosed().subscribe((confirm) => {
-      console.log(confirm)
-      if (confirm) {
-        this.http.delete<City>(`http://localhost:3000/cities/${city.id}`)
-          .subscribe(() => {
-            this.cities.reload()
-            this.snackBar.open('City Removed', 'ALERT', { duration: 1000});
+            this.snackbar.open('Element ADded', 'success', { horizontalPosition: 'end', duration: 1000})
           })
       }
     })
   }
 
   editCity(city: City) {
-    const dialog = this.dialog.open(DialogCity, {
+    console.log(city)
+    const dialogRef = this.dialog.open(DialogCityForm, {
       width: '300px',
-      data: { name: city.name, type: 'edit' }
-    });
-    dialog.afterClosed().subscribe((newName) => {
-      if (newName) {
-        this.http.patch<City>(`http://localhost:3000/cities/${city.id}`, { name: newName })
+      data: { name: city.name, type: 'edit' },
+    })
+
+    dialogRef.afterClosed().subscribe(cityName => {
+      if(cityName) {
+        this.http.patch(`http://localhost:3000/cities/${city.id}`, {
+          name: cityName
+        })
           .subscribe(() => {
             this.cities.reload()
-            this.snackBar.open('City Updated', 'ALERT', { duration: 1000});
+            this.snackbar.open('City Updated', 'success', { horizontalPosition: 'end', duration: 1000})
           })
       }
     })
 
   }
 
-  dragCities(cities: City[]) {
-    console.log(cities);
 
-    const citiesObservables = cities.map((city, index) =>
-      // this.update(project.id, { name: project.name, position: index })
-      this.http.patch<City>(`http://localhost:3000/cities/${city.id}`, {
-        name: city.name, position: index
-      })
-    );
-
-    forkJoin(citiesObservables).subscribe((results) => {
-      this.snackBar.open('City Sorted', 'ALERT', { duration: 1000});
-    });
+  deleteCity(city: City) {
+    const dialogRef = this.dialog.open(DialogRemoveCity, {
+      width: '250px'
+    })
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.http.delete(`http://localhost:3000/cities/${city.id}`)
+          .subscribe(() => {
+            this.snackbar.open('Element Removed', 'success', { horizontalPosition: 'end', duration: 1000})
+            this.cities.reload()
+          })
+      }
+    })
   }
+
+  dragCities(cities: City[]) {
+    console.log(cities)
+    const citiesObservables = cities.map((city, index) => {
+      return this.http.patch(`http://localhost:3000/cities/${city.id}`, {
+        name: city.name,
+        position: index
+      })
+    })
+
+    forkJoin(citiesObservables)
+      .subscribe(() => {
+        this.cities.reload()
+        //   window.alert('done')
+      })
+  }
+
+  getMaxPosition(cities: City[] = []) {
+    if (!Array.isArray(cities) || cities.length === 0) {
+      return -1; // Nessun elemento
+    }
+
+    return Math.max(...cities.map(city => city.position ?? -1));
+  }
+
 }

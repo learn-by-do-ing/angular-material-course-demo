@@ -1,7 +1,6 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { Component, forwardRef, input, model, output, signal } from '@angular/core';
+import { Component, forwardRef, signal } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 
 @Component({
@@ -12,7 +11,6 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
     FormsModule,
     CdkOverlayOrigin,
     CdkConnectedOverlay,
-    MatButton
   ],
   template: `
     <div
