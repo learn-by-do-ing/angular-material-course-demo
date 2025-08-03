@@ -46,6 +46,7 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
   ],
   styles: `
     .panel {
+      background-color: white;
       border: 1px solid black;
       border-radius: 4rem;
       margin: 1rem 0;

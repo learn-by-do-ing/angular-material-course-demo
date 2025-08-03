@@ -12,21 +12,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   ],
   template: `
     <mat-list>
-      <mat-list-item routerLink="home" routerLinkActive="opacity-50">
-        Home
-      </mat-list-item>
-      <mat-list-item routerLink="demo" routerLinkActive="opacity-50">
-        Demo
-      </mat-list-item>
-      <mat-list-item routerLink="dashboard" routerLinkActive="opacity-50">
-        Dashboard
-      </mat-list-item>
-      <mat-list-item routerLink="demo-dnd" routerLinkActive="opacity-50">
-        Demo Drag and Drop
-      </mat-list-item>
-      <mat-list-item routerLink="demo-overlay" routerLinkActive="opacity-50">
-        Demo Overlay
-      </mat-list-item>
+      <mat-list-item routerLink="home" routerLinkActive="opacity-50">Home</mat-list-item>
+      <mat-list-item routerLink="demo" routerLinkActive="opacity-50">Demo</mat-list-item>
+      <mat-list-item routerLink="dashboard" routerLinkActive="opacity-50">Dashboard</mat-list-item>
+      <mat-list-item routerLink="demo-components" routerLinkActive="opacity-50">Demo Components</mat-list-item>
+      <mat-list-item routerLink="demo-forms-reactive" routerLinkActive="opacity-50">Demo Reactive Forms</mat-list-item>
+      <mat-list-item routerLink="demo-forms-template" routerLinkActive="opacity-50">Demo Template Driven Forms</mat-list-item>
+      <mat-list-item routerLink="demo-dnd" routerLinkActive="opacity-50">Demo Drag and Drop</mat-list-item>
+      <mat-list-item routerLink="demo-overlay" routerLinkActive="opacity-50">Demo Overlay</mat-list-item>
     </mat-list>
   `,
   styles: ``

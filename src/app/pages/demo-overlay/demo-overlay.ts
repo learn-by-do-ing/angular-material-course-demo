@@ -12,20 +12,16 @@ import { OverlayProgress } from './components/overlay-progress';
     ReactiveFormsModule
   ],
   template: `
-    <h1>Overlay: popover menu</h1>
-    <app-overlay-menu
-      [items]="['one', 'two', 'three']"
-      (onItemClick)="doSomething($event)"
-    />
     
-    <br>
-    <br>
-    <h1>Overlay: popover progress/slider</h1>
     <h2>Reactive Forms</h2>
     <pre>value: {{myInput.value}}</pre>
     <pre>dirty: {{myInput.dirty}}</pre>
     <pre>touched: {{myInput.touched}}</pre>
+    <br>
     <app-overlay-progress [formControl]="myInput" />
+    <br>
+    <br>
+    <br>
     
     <h2>Template Driven Forms</h2>
     <app-overlay-progress [(ngModel)]="value" /> {{value()}}

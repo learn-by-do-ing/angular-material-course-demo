@@ -6,5 +6,8 @@ export const routes: Routes = [
   { path: 'demo-dnd', loadComponent: () => import('./pages/demo-dnd/demo-dnd')},
   { path: 'demo-overlay', loadComponent: () => import('./pages/demo-overlay/demo-overlay')},
   { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard')},
+  { path: 'demo-components', loadComponent: () => import('./pages/demo-components/demo-components')},
+  { path: 'demo-forms-template', loadComponent: () => import('./pages/demo-forms-template/demo-forms-template')},
+  { path: 'demo-forms-reactive', loadComponent: () => import('./pages/demo-forms-reactive/demo-forms-reactive')},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
