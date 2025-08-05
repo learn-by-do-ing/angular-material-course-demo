@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
-html, body { height: 100%; }
+html, body {
+  height: 100%;
+  /*--mat-sys-body-medium-line-height: 1.25rem;*/
+  /*--mat-sys-tertiary: #DDDD00;*/
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 
 h1 {
   @apply text-4xl  font-thin my-6;

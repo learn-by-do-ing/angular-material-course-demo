@@ -6,7 +6,6 @@ import { OverlayProgress } from './components/overlay-progress';
 @Component({
   selector: 'app-demo-overlay',
   imports: [
-    OverlayMenu,
     OverlayProgress,
     FormsModule,
     ReactiveFormsModule

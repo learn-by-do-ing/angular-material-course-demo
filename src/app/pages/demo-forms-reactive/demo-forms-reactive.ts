@@ -53,7 +53,6 @@ import { MatSelectModule } from '@angular/material/select';
         }
       </mat-form-field>
 
-      @let topics = form.get('topics');
       <mat-form-field>
         <mat-label>Favorite Topics</mat-label>
         <mat-select formControlName="topics" multiple>

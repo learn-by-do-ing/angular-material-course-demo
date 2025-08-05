@@ -5,13 +5,20 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use "../_theme-colors.scss" as theme-colors;
+@use 'sass:map';
 
 html {
   @include mat.theme((
     color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: theme-colors.$primary-palette,
+      secondary: theme-colors.$secondary-palette,
+      tertiary: theme-colors.$tertiary-palette,
     ),
+    /*color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$rose-palette,
+    ),*/
     typography: Roboto,
     density: 0,
   ));
@@ -28,3 +35,47 @@ html {
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 }
+:root {
+  @include mat.badge-overrides((
+          background-color: orange,
+          disabled-state-background-color: red,
+          container-size: '40px',
+          line-height: '40px',
+          text-size: '30px',
+  ));
+}
+
+/*:root {
+  @include mat.button-overrides((
+        filled-container-shape: '10px',
+        filled-container-height: '140px',
+        protected-container-shape: '10px',
+        protected-container-height: '140px',
+        outlined-container-height: '140px',
+        outlined-container-shape: '10px',
+  ));
+}*/
+.accent {
+  @include mat.button-overrides((
+    /*filled-container-color: var(--mat-sys-tertiary),*/
+    filled-container-color: map.get(theme-colors.$tertiary-palette, 50),
+    outlined-outline-color: var(--mat-sys-tertiary),
+    outlined-label-text-color: var(--mat-sys-tertiary),
+    /*protected-container-color: var(--mat-sys-tertiary),*/
+    protected-container-color: map.get(theme-colors.$tertiary-palette, 50),
+    protected-label-text-color: var(--mat-sys-on-tertiary)
+  ))
+}
+
+.error {
+  @include mat.button-overrides((
+          filled-container-color: var(--mat-sys-error),
+          outlined-outline-color: var(--mat-sys-error),
+          outlined-label-text-color: var(--mat-sys-error),
+          /*protected-container-color: var(--mat-sys-error),*/
+          protected-container-color: map.get(theme-colors.$error-palette, 40),
+          protected-label-text-color: var(--mat-sys-on-error)
+  ))
+}
+
+

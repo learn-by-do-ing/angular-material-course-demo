@@ -20,6 +20,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       <mat-list-item routerLink="demo-forms-template" routerLinkActive="opacity-50">Demo Template Driven Forms</mat-list-item>
       <mat-list-item routerLink="demo-dnd" routerLinkActive="opacity-50">Demo Drag and Drop</mat-list-item>
       <mat-list-item routerLink="demo-overlay" routerLinkActive="opacity-50">Demo Overlay</mat-list-item>
+      <mat-list-item routerLink="demo-customize-theme1" routerLinkActive="opacity-50">Customize Theme 1</mat-list-item>
+      <mat-list-item routerLink="demo-customize-theme2" routerLinkActive="opacity-50">Customize Theme 2</mat-list-item>
     </mat-list>
   `,
   styles: ``

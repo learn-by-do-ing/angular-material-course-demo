@@ -14,7 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule, MatFormFieldModule, MatInputModule, JsonPipe, MatSelectModule, MatCheckbox, MatRadioGroup, MatRadioButton, MatButton
   ],
   template: `
-    <h1>Reactive Template Forms</h1>
+    <h1>Template Driven Forms</h1>
     
     <form
       #form="ngForm"
@@ -82,7 +82,7 @@ import { MatSelectModule } from '@angular/material/select';
         ngModel name="subscribe"
       >Subscribe Newsletter</mat-checkbox>
       
-      <button mat-stroked-button type="submit">SEND</button>
+      <button mat-flat-button class="accent" type="submit">SEND</button>
       <pre>{{form.value | json}}</pre>
     </form>
 

@@ -8,6 +8,8 @@ export const routes: Routes = [
   { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard')},
   { path: 'demo-components', loadComponent: () => import('./pages/demo-components/demo-components')},
   { path: 'demo-forms-template', loadComponent: () => import('./pages/demo-forms-template/demo-forms-template')},
+  { path: 'demo-customize-theme1', loadComponent: () => import('./pages/demo-theming/customize-demo1')},
+  { path: 'demo-customize-theme2', loadComponent: () => import('./pages/demo-theming/customize-demo2')},
   { path: 'demo-forms-reactive', loadComponent: () => import('./pages/demo-forms-reactive/demo-forms-reactive')},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

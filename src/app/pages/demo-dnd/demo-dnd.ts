@@ -5,7 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-demo-dnd',
-  imports: [CdkDropList, CdkDrag, JsonPipe, MatIcon, CdkDragHandle],
+  imports: [CdkDropList, CdkDrag, MatIcon, CdkDragHandle],
   template: `
     <h1>Drag And Drop Demo</h1>
     <div
